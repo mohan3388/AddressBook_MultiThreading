@@ -20,9 +20,28 @@ namespace AddressBookProblem
             );
             Console.WriteLine(this.AddDatalist.ToString());
         }
+        public void AddEmployeePayrollThread(List<Contact> employeeDatalist)
+        {
+            employeeDatalist.ForEach(employeeData =>
 
+            {
+                Task thread = new Task(() =>
+                {
+                    Console.WriteLine("Employee being added: " + employeeData.FirstName);
+                    this.AddEmployeePayrollThread(employeeData);
+                    Console.WriteLine("Employee added: " + employeeData.FirstName);
+
+                });
+                thread.Start();
+            });
+            Console.WriteLine(this.AddDatalist.Count);
+        }
 
         public void AddEmployeePayroll(Contact emp)
+        {
+            AddDatalist.Add(emp);
+        }
+        public void AddEmployeePayrollThread(Contact emp)
         {
             AddDatalist.Add(emp);
         }
